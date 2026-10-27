@@ -52,8 +52,13 @@ def clip_columns(X, lower, upper):
     X = np.asarray(X, dtype=float)
     return np.clip(X, lower, upper)
 
-# Step 4 - make_ratio_feature (not yet solved)
-# TODO: implement
+# Step 4 - make_ratio_feature
+import numpy as np
+
+def make_ratio_feature(numerator, denominator, eps=1e-8):
+    numerator = np.asarray(numerator, dtype=float)
+    denominator = np.asarray(denominator, dtype=float)
+    return numerator / (denominator + eps)
 
 # Step 5 - append_column (not yet solved)
 # TODO: implement
