@@ -238,8 +238,16 @@ def ols_predict(X: np.ndarray, theta: np.ndarray) -> np.ndarray:
     # Matrix-vector multiplication computes the dot product for each row efficiently
     return X @ theta
 
-# Step 15 - mean_absolute_error (not yet solved)
-# TODO: implement
+# Step 15 - mean_absolute_error
+def mean_absolute_error(y_true, y_pred):
+   n = len(y_pred)
+   total_sum = 0   
+
+   for i in range(n):
+        total_sum += abs(y_true[i] - y_pred[i])
+
+
+   return total_sum / n
 
 # Step 16 - root_mean_squared_error (not yet solved)
 # TODO: implement
