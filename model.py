@@ -107,8 +107,26 @@ def apply_standardizer(X, mean, std):
     # TODO: Return the scaled matrix (X - mean) / std via broadcasting.
     return (X - mean) / std
 
-# Step 9 - add_bias_column (not yet solved)
-# TODO: implement
+# Step 9 - add_bias_column
+import numpy as np
+
+def add_bias_column(X: np.ndarray) -> np.ndarray:
+    """
+    Prepends a column of ones to a 2-D feature matrix X.
+    
+    Parameters:
+    X (np.ndarray): 2-D feature matrix of shape (N, F)
+    
+    Returns:
+    np.ndarray: Modified feature matrix of shape (N, F+1) with ones in column 0.
+    """
+    N = X.shape[0]
+    
+    # Create a column vector of ones with shape (N, 1) matching X's data type
+    bias = np.ones((N, 1), dtype=X.dtype)
+    
+    # Concatenate along the columns axis (axis=1)
+    return np.hstack((bias, X))
 
 # Step 10 - make_shuffled_indices (not yet solved)
 # TODO: implement
