@@ -148,8 +148,33 @@ def make_shuffled_indices(n_samples: int, seed: int) -> np.ndarray:
     # Generate a shuffled permutation array from 0 to n_samples-1
     return rng.permutation(n_samples)
 
-# Step 11 - partition_indices (not yet solved)
-# TODO: implement
+# Step 11 - partition_indices
+import numpy as np
+
+def partition_indices(indices: np.ndarray, train_ratio: float, val_ratio: float) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Partitions an array of row indices into contiguous train, validation, and test slices.
+    
+    Parameters:
+    indices (np.ndarray): 1-D array of row indices.
+    train_ratio (float): Ratio for training subset (0, 1).
+    val_ratio (float): Ratio for validation subset (0, 1).
+    
+    Returns:
+    tuple: (train_idx, val_idx, test_idx) as 1-D integer NumPy arrays.
+    """
+    N = len(indices)
+    
+    # Calculate split boundaries using explicit flooring
+    train_end = int(np.floor(N * train_ratio))
+    val_end = train_end + int(np.floor(N * val_ratio))
+    
+    # Extract contiguous prefixes/slices
+    train_idx = indices[:train_end]
+    val_idx = indices[train_end:val_end]
+    test_idx = indices[val_end:]
+    
+    return train_idx, val_idx, test_idx
 
 # Step 12 - subset_xy (not yet solved)
 # TODO: implement
