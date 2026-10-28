@@ -76,8 +76,19 @@ def append_column(X, col):
     
     return np.array(new_rows)
 
-# Step 6 - one_hot_encode (not yet solved)
-# TODO: implement
+# Step 6 - one_hot_encode
+import numpy as np
+
+def one_hot_encode(labels):
+    unique_categories, unique_inverse = np.unique(labels, return_inverse=True)
+    
+    N = len(labels)
+    C = len(unique_categories)
+    one_hot = np.zeros((N, C), dtype=float)
+    
+    one_hot[np.arange(N), unique_inverse] = 1.0
+    
+    return one_hot
 
 # Step 7 - fit_standardizer (not yet solved)
 # TODO: implement
