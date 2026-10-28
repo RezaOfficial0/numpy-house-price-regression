@@ -197,8 +197,29 @@ def subset_xy(X: np.ndarray, y: np.ndarray, indices: np.ndarray) -> tuple[np.nda
     
     return X_sub, y_sub
 
-# Step 13 - ols_fit (not yet solved)
-# TODO: implement
+# Step 13 - ols_fit
+import numpy as np
+
+def ols_fit(X: np.ndarray, y: np.ndarray) -> np.ndarray:
+    """
+    Computes the OLS weight vector theta by solving the normal equations.
+    
+    Parameters:
+    X (np.ndarray): Design matrix of shape (N, D) including the bias column.
+    y (np.ndarray): Target vector of shape (N,).
+    
+    Returns:
+    np.ndarray: Weight vector theta of shape (D,).
+    """
+    # Form the components of the normal equations: (X^T * X) * theta = X^T * y
+    XT = X.T
+    A = XT @ X
+    b = XT @ y
+    
+    # Solve the system of linear equations directly for numerical stability
+    theta = np.linalg.solve(A, b)
+    
+    return theta
 
 # Step 14 - ols_predict (not yet solved)
 # TODO: implement
