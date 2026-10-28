@@ -60,8 +60,21 @@ def make_ratio_feature(numerator, denominator, eps=1e-8):
     denominator = np.asarray(denominator, dtype=float)
     return numerator / (denominator + eps)
 
-# Step 5 - append_column (not yet solved)
-# TODO: implement
+# Step 5 - append_column
+import numpy as np
+def append_column(X, col):
+
+    x = X.copy()
+    new_rows = []
+
+    for i in range(len(x)):
+        updated_row = np.append(x[i], col[i])
+        new_rows.append(updated_row)
+
+
+
+    
+    return np.array(new_rows)
 
 # Step 6 - one_hot_encode (not yet solved)
 # TODO: implement
