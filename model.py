@@ -309,8 +309,46 @@ def residual_summary(y_true, y_pred):
         "median_abs": float(np.median(np.abs(r))),
     }
 
-# Step 19 - prepare_cleaned_features (not yet solved)
-# TODO: implement
+# Step 19 - prepare_cleaned_features
+import numpy as np
+
+
+def prepare_cleaned_features(X, iqr_k=1.5):
+    """Impute NaNs then IQR-clip columns to produce a clean numeric matrix.
+
+    Args:
+        X: (N, F) array-like of floats, may contain NaN.
+        iqr_k: IQR multiplier passed to compute_iqr_bounds (default 1.5).
+
+    Returns:
+        (N, F) float ndarray with no NaNs, columns clipped to IQR bounds.
+    """
+    # Convert input to a 2D float NumPy array
+    X_clean = np.array(X, dtype=float)
+
+    # Process each column independently
+    for j in range(X_clean.shape[1]):
+        col = X_clean[:, j]
+
+        # 1. Impute NaNs with the mean of non-NaN values in the column
+        nan_mask = np.isnan(col)
+        if np.any(nan_mask):
+            # If the entire column is NaN, default the mean to 0.0
+            col_mean = (
+                np.nanmean(col) if not np.all(nan_mask) else 0.0
+            )
+            col[nan_mask] = col_mean
+
+        # 2. Compute IQR bounds on the imputed column
+        q25, q75 = np.percentile(col, [25, 75])
+        iqr = q75 - q25
+        lower_bound = q25 - (iqr_k * iqr)
+        upper_bound = q75 + (iqr_k * iqr)
+
+        # 3. Clip column values to the IQR bounds
+        X_clean[:, j] = np.clip(col, lower_bound, upper_bound)
+
+    return X_clean
 
 # Step 20 - assemble_feature_matrix (not yet solved)
 # TODO: implement
