@@ -272,8 +272,27 @@ def root_mean_squared_error(y_true, y_pred):
     resault =math.sqrt(Total_sum/N )    
     return resault
 
-# Step 17 - r_squared (not yet solved)
-# TODO: implement
+# Step 17 - r_squared
+import numpy as np
+
+
+def r_squared(y_true, y_pred):
+    # Convert inputs to numpy arrays for vector operations
+    y_true = np.asarray(y_true)
+    y_pred = np.asarray(y_pred)
+
+    # Calculate the total sum of squares (proportional to variance of true values)
+    ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
+
+    # Avoid division by zero if all y_true values are identical
+    if ss_tot == 0.0:
+        return 0.0
+
+    # Calculate the residual sum of squares
+    ss_res = np.sum((y_true - y_pred) ** 2)
+
+    # Compute and return the R^2 score
+    return 1.0 - (ss_res / ss_tot)
 
 # Step 18 - residual_summary (not yet solved)
 # TODO: implement
