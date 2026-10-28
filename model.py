@@ -221,8 +221,22 @@ def ols_fit(X: np.ndarray, y: np.ndarray) -> np.ndarray:
     
     return theta
 
-# Step 14 - ols_predict (not yet solved)
-# TODO: implement
+# Step 14 - ols_predict
+import numpy as np
+
+def ols_predict(X: np.ndarray, theta: np.ndarray) -> np.ndarray:
+    """
+    Scores new rows with a fitted linear model using matrix multiplication.
+    
+    Parameters:
+    X (np.ndarray): Feature matrix of shape (N, D), including the bias column.
+    theta (np.ndarray): Fitted weight vector of shape (D,).
+    
+    Returns:
+    np.ndarray: Predicted targets as a 1-D array of shape (N,).
+    """
+    # Matrix-vector multiplication computes the dot product for each row efficiently
+    return X @ theta
 
 # Step 15 - mean_absolute_error (not yet solved)
 # TODO: implement
