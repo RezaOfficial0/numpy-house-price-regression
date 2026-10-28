@@ -176,8 +176,26 @@ def partition_indices(indices: np.ndarray, train_ratio: float, val_ratio: float)
     
     return train_idx, val_idx, test_idx
 
-# Step 12 - subset_xy (not yet solved)
-# TODO: implement
+# Step 12 - subset_xy
+import numpy as np
+
+def subset_xy(X: np.ndarray, y: np.ndarray, indices: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Selects rows of feature matrix X and target vector y at the given indices.
+    
+    Parameters:
+    X (np.ndarray): 2-D array of shape (N, F)
+    y (np.ndarray): 1-D array of shape (N,) or 2-D array of shape (N, T)
+    indices (np.ndarray): 1-D array of indices to extract
+    
+    Returns:
+    tuple: (X_sub, y_sub) matching the row ordering specified in indices.
+    """
+    # NumPy fancy indexing extracts the exact rows in the order of indices
+    X_sub = X[indices]
+    y_sub = y[indices]
+    
+    return X_sub, y_sub
 
 # Step 13 - ols_fit (not yet solved)
 # TODO: implement
