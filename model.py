@@ -128,8 +128,25 @@ def add_bias_column(X: np.ndarray) -> np.ndarray:
     # Concatenate along the columns axis (axis=1)
     return np.hstack((bias, X))
 
-# Step 10 - make_shuffled_indices (not yet solved)
-# TODO: implement
+# Step 10 - make_shuffled_indices
+import numpy as np
+
+def make_shuffled_indices(n_samples: int, seed: int) -> np.ndarray:
+    """
+    Creates a reproducibly shuffled permutation of row indices from 0 through n_samples-1.
+    
+    Parameters:
+    n_samples (int): Total number of samples (length of index array).
+    seed (int): Integer random seed for reproducibility.
+    
+    Returns:
+    np.ndarray: 1-D integer array of shape (n_samples,) containing the shuffled indices.
+    """
+    # Instantiate an isolated random number generator using the provided seed
+    rng = np.random.default_rng(seed)
+    
+    # Generate a shuffled permutation array from 0 to n_samples-1
+    return rng.permutation(n_samples)
 
 # Step 11 - partition_indices (not yet solved)
 # TODO: implement
