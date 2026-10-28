@@ -249,8 +249,28 @@ def mean_absolute_error(y_true, y_pred):
 
    return total_sum / n
 
-# Step 16 - root_mean_squared_error (not yet solved)
-# TODO: implement
+# Step 16 - root_mean_squared_error
+import math
+def root_mean_squared_error(y_true, y_pred):
+    """Compute root mean squared error between targets and predictions.
+
+    Args:
+        y_true (np.ndarray): Ground-truth targets, shape (N,).
+        y_pred (np.ndarray): Predicted targets, shape (N,).
+
+    Returns:
+        float: RMSE value.
+    """
+    
+    N = len(y_pred)
+    Total_sum = 0
+
+    for i in range(N):
+        Total_sum += (y_pred[i]-y_true[i])**2
+
+
+    resault =math.sqrt(Total_sum/N )    
+    return resault
 
 # Step 17 - r_squared (not yet solved)
 # TODO: implement
