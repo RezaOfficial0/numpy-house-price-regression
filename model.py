@@ -350,8 +350,46 @@ def prepare_cleaned_features(X, iqr_k=1.5):
 
     return X_clean
 
-# Step 20 - assemble_feature_matrix (not yet solved)
-# TODO: implement
+# Step 20 - assemble_feature_matrix
+import numpy as np
+
+
+def assemble_feature_matrix(
+    X_num, ratio_num_idx, ratio_den_idx, cat_labels=None
+):
+    """Assembles an extended feature matrix with a derived ratio and optional categorical block.
+
+    Args:
+        X_num: (N, F) array-like of numeric features.
+        ratio_num_idx: Integer index of the numerator column in X_num.
+        ratio_den_idx: Integer index of the denominator column in X_num.
+        cat_labels: Optional 1D array-like of categorical labels of length N.
+
+    Returns:
+        (N, F+1) or (N, F+1+C) float ndarray containing the numeric features,
+        the appended ratio feature, and optionally the one-hot encoded categories.
+    """
+    # Ensure X_num is a 2D numpy array
+    X_mat = np.asarray(X_num, dtype=float)
+
+    # 1. Extract the numerator and denominator columns
+    numerator = X_mat[:, ratio_num_idx]
+    denominator = X_mat[:, ratio_den_idx]
+
+    # 2. Compute the ratio feature using the pre-defined step 4 function
+    ratio_col = make_ratio_feature(numerator, denominator, eps=1e-08)
+
+    # 3. Append the ratio column to the numeric matrix using the pre-defined step 5 function
+    X_extended = append_column(X_mat, ratio_col)
+
+    # 4. If categorical labels are provided, one-hot encode and append them
+    if cat_labels is not None:
+        # Generate the one-hot block using the pre-defined step 6 function
+        cat_block = one_hot_encode(cat_labels)
+        # Horizontally stack the categorical block onto the extended matrix
+        X_extended = np.hstack((X_extended, cat_block))
+
+    return X_extended
 
 # Step 21 - make_train_val_test (not yet solved)
 # TODO: implement
