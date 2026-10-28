@@ -508,8 +508,33 @@ def standardize_and_add_bias(splits):
 
     return std_splits, mean, std
 
-# Step 23 - evaluate_predictions (not yet solved)
-# TODO: implement
+# Step 23 - evaluate_predictions
+def evaluate_predictions(y_true, y_pred):
+    """Computes a single metrics dictionary summarizing model performance.
+
+    Args:
+        y_true: (N,) array-like of ground-truth targets.
+        y_pred: (N,) array-like of predicted targets.
+
+    Returns:
+        dict: A dictionary containing performance metrics with keys:
+              'mae', 'rmse', 'r2', and 'residual_summary'.
+    """
+    # 1. Compute each regression metric using the pre-defined helper functions
+    mae_val = mean_absolute_error(y_true, y_pred)
+    rmse_val = root_mean_squared_error(y_true, y_pred)
+    r2_val = r_squared(y_true, y_pred)
+
+    # 2. Compute the compact residual summary dictionary
+    res_sum = residual_summary(y_true, y_pred)
+
+    # 3. Package and return the final evaluation dictionary
+    return {
+        "mae": mae_val,
+        "rmse": rmse_val,
+        "r2": r2_val,
+        "residual_summary": res_sum,
+    }
 
 # Step 24 - house_price_pipeline (not yet solved)
 # TODO: implement
