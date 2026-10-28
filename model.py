@@ -467,8 +467,46 @@ def make_train_val_test(X, y, train_ratio, val_ratio, seed):
         "y_test": y_test,
     }
 
-# Step 22 - standardize_and_add_bias (not yet solved)
-# TODO: implement
+# Step 22 - standardize_and_add_bias
+def standardize_and_add_bias(splits):
+    """Fits standardization statistics on the training set, transforms all splits,
+
+    and prepends a bias column to each feature matrix.
+
+    Args:
+        splits: dict containing 'X_train', 'y_train', 'X_val', 'y_val',
+          'X_test', 'y_test'.
+
+    Returns:
+        tuple: (std_splits, mean, std) where std_splits has the same keys as
+        input,
+               with features standardized and prepended with a bias column,
+               and mean/std are the computed training statistics of shape (F,).
+    """
+    # 1. Fit the standardizer using the training features only (Step 7)
+    mean, std = fit_standardizer(splits["X_train"])
+
+    # 2. Apply the standardizer to every feature split using the training statistics (Step 8)
+    X_train_std = apply_standardizer(splits["X_train"], mean, std)
+    X_val_std = apply_standardizer(splits["X_val"], mean, std)
+    X_test_std = apply_standardizer(splits["X_test"], mean, std)
+
+    # 3. Prepend a bias column of ones to each standardized matrix (Step 9)
+    X_train_bias = add_bias_column(X_train_std)
+    X_val_bias = add_bias_column(X_val_std)
+    X_test_bias = add_bias_column(X_test_std)
+
+    # 4. Construct the output dictionary preserving the original target vectors
+    std_splits = {
+        "X_train": X_train_bias,
+        "y_train": splits["y_train"],
+        "X_val": X_val_bias,
+        "y_val": splits["y_val"],
+        "X_test": X_test_bias,
+        "y_test": splits["y_test"],
+    }
+
+    return std_splits, mean, std
 
 # Step 23 - evaluate_predictions (not yet solved)
 # TODO: implement
